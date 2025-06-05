@@ -6,7 +6,7 @@
 #    By: alejandj <alejandj@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/31 20:17:48 by alejandj          #+#    #+#              #
-#    Updated: 2025/06/01 20:47:04 by alejandj         ###   ########.fr        #
+#    Updated: 2025/06/04 13:35:02 by alejandj         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,8 @@ OBJDIR = obj/
 
 SRC =	src/so_long.c			\
 		src/so_long_utils.c		\
+		src/map_utils.c			\
+		src/map_check.c			\
 
 OBJECTS = $(SRC:src/%.c=$(OBJDIR)/%.o)
 
