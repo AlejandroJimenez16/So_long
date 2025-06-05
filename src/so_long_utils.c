@@ -6,7 +6,7 @@
 /*   By: alejandj <alejandj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 20:15:16 by alejandj          #+#    #+#             */
-/*   Updated: 2025/05/31 20:16:21 by alejandj         ###   ########.fr       */
+/*   Updated: 2025/06/05 12:34:00 by alejandj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,11 @@ void	free_arr(char **arr)
 		i++;
 	}
 	free(arr);
+}
+
+void	print_errors(char **map)
+{
+	write(2, "Error\n", 6);
+	free_arr(map);
+	exit(1);
 }
