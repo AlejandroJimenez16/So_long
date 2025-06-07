@@ -6,7 +6,7 @@
 /*   By: alejandj <alejandj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 17:13:42 by alejandj          #+#    #+#             */
-/*   Updated: 2025/06/05 13:20:18 by alejandj         ###   ########.fr       */
+/*   Updated: 2025/06/07 21:23:12 by alejandj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	check_file_extension(char *str)
 {
-	char **file_name;
+	char	**file_name;
 	int		len;
 
 	file_name = ft_split(str, '.');
@@ -26,6 +26,41 @@ int	check_file_extension(char *str)
 	}
 	free_arr(file_name);
 	return (1);
+}
+
+void	validate_map(char **map)
+{
+	//Comprobacion mapa rectangular
+	if (!is_rectangular(map))
+	{
+		ft_putstr_fd("\033[1;31mNO ES RECTANGULAR\n\033[0m", 2);
+		exit(1);
+	}
+	ft_printf("ES RECTANGULAR\n");
+	
+	// Comprobacion mapa cerrado
+	if (!check_walls_x(map) || !check_walls_y(map))
+	{
+		ft_putstr_fd("\033[1;31mNO TA BN CERRADO EL MAPA\n\033[0m", 2);
+		exit(1);
+	}
+	ft_printf("TA BN CERRADO\n");
+
+	// Comprobacion minimo elementos
+	if (!check_min_elements(map))
+	{
+		ft_putstr_fd("\033[1;31mELEMENTOS INCORRECTOS\n\033[0m", 2);
+		exit(1);
+	}
+	ft_printf("TAN BN LOS ELEMENTOS\n");
+
+	// Comprobacion caracteres
+	if (!check_valid_chars(map))
+	{
+		ft_putstr_fd("\033[1;31mHAY CARACTERES NO VALIDOS\n\033[0m", 2);
+		exit(1);
+	}
+	ft_printf("TAN BN LOS CARACTERES\n");
 }
 
 int	main(int argc, char *argv[])
@@ -44,24 +79,14 @@ int	main(int argc, char *argv[])
 		// Llenar el mapa
 		map = load_map(argv[1]);
 
-		//Comprobacion mapa rectangular
-		if (!is_rectangular(map))
-		{
-			ft_putstr_fd("\033[1;31mNO ES RECTANGULAR\n\033[0m", 2);
-			return (1);
-		}
-		ft_printf("ES RECTANGULAR\n");
-		
-		// Comprobacion mapa cerrado
-		if (!check_walls_X(map) || !check_walls_Y(map))
-		{
-			ft_putstr_fd("\033[1;31mNO TA BN CERRADO EL MAPA\n\033[0m", 2);
-			return (1);
-		}
-		ft_printf("TA BN CERRADO\n");
+		// Validar mapa
+		validate_map(map);
 		
 		//mostrar lineas map
-		//print_map(map);
+		ft_printf("==========================\n");
+		ft_printf("            MAP           \n");
+		ft_printf("==========================\n");
+		print_map(map);
 		
 		free_arr(map);
 	}
