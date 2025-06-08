@@ -6,7 +6,7 @@
 /*   By: alejandj <alejandj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 11:51:51 by alejandj          #+#    #+#             */
-/*   Updated: 2025/06/04 13:44:20 by alejandj         ###   ########.fr       */
+/*   Updated: 2025/06/09 01:09:02 by alejandj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,17 @@ char	**load_map(char *file)
 void	print_map(char **map)
 {
 	int	j;
+	int	num_map_lines;
 
+	num_map_lines = count_lines_map(map) - 1;
 	j = 0;
 	while (map[j] != NULL)
 	{
+		if (j == num_map_lines)
+		{
+			ft_printf("%s\n", map[j]);
+			break ;
+		}
 		ft_printf("%s", map[j]);
 		j++;
 	}
