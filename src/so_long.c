@@ -6,7 +6,7 @@
 /*   By: alejandj <alejandj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 17:13:42 by alejandj          #+#    #+#             */
-/*   Updated: 2025/06/07 21:23:12 by alejandj         ###   ########.fr       */
+/*   Updated: 2025/06/08 20:13:35 by alejandj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,37 +30,14 @@ int	check_file_extension(char *str)
 
 void	validate_map(char **map)
 {
-	//Comprobacion mapa rectangular
 	if (!is_rectangular(map))
-	{
-		ft_putstr_fd("\033[1;31mNO ES RECTANGULAR\n\033[0m", 2);
-		exit(1);
-	}
-	ft_printf("ES RECTANGULAR\n");
-	
-	// Comprobacion mapa cerrado
+		print_errors(map, "Map is not rectangular");
 	if (!check_walls_x(map) || !check_walls_y(map))
-	{
-		ft_putstr_fd("\033[1;31mNO TA BN CERRADO EL MAPA\n\033[0m", 2);
-		exit(1);
-	}
-	ft_printf("TA BN CERRADO\n");
-
-	// Comprobacion minimo elementos
+		print_errors(map, "Map is not closed");
 	if (!check_min_elements(map))
-	{
-		ft_putstr_fd("\033[1;31mELEMENTOS INCORRECTOS\n\033[0m", 2);
-		exit(1);
-	}
-	ft_printf("TAN BN LOS ELEMENTOS\n");
-
-	// Comprobacion caracteres
+		print_errors(map, "Map does not contain all required elements");
 	if (!check_valid_chars(map))
-	{
-		ft_putstr_fd("\033[1;31mHAY CARACTERES NO VALIDOS\n\033[0m", 2);
-		exit(1);
-	}
-	ft_printf("TAN BN LOS CARACTERES\n");
+		print_errors(map, "Map contains invalid characters");
 }
 
 int	main(int argc, char *argv[])
