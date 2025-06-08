@@ -6,7 +6,7 @@
 /*   By: alejandj <alejandj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 13:54:13 by alejandj          #+#    #+#             */
-/*   Updated: 2025/06/07 21:22:22 by alejandj         ###   ########.fr       */
+/*   Updated: 2025/06/08 20:10:24 by alejandj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ typedef struct s_elements
 
 // Utils
 void	free_arr(char **arr);
-void	print_errors(char **map);
+void	print_errors(char **map, char *msg);
 
 // Map
 char	**load_map(char *file);
