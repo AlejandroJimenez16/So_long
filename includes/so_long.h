@@ -6,7 +6,7 @@
 /*   By: alejandj <alejandj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 13:54:13 by alejandj          #+#    #+#             */
-/*   Updated: 2025/06/08 20:10:24 by alejandj         ###   ########.fr       */
+/*   Updated: 2025/06/09 14:46:48 by alejandj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,18 @@ typedef struct s_elements
 	int	num_c;
 	int	num_p;
 }			t_elements;
+
+typedef struct s_pos
+{
+	int		x;
+	int		y;
+}			t_pos;
+
+typedef struct s_queue
+{
+	t_list	*head;
+}			t_queue;
+
 
 // Utils
 void	free_arr(char **arr);

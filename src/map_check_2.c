@@ -6,7 +6,7 @@
 /*   By: alejandj <alejandj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 20:45:26 by alejandj          #+#    #+#             */
-/*   Updated: 2025/06/07 21:52:38 by alejandj         ###   ########.fr       */
+/*   Updated: 2025/06/09 15:03:13 by alejandj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,46 @@ int	check_valid_chars(char **map)
 		}
 		i++;
 	}
+	return (1);
+}
+
+int	check_path(char **map)
+{
+	// Inicializar las listas
+	t_queue *queue;
+	t_pos	*pos;
+
+	queue = malloc(sizeof(t_queue));
+	if (!queue)
+		return (0);
+	queue->head = NULL;
+	pos = malloc(sizeof(t_pos));
+	if (!pos)
+		return (0);
+	pos->x = 0;
+	pos->y = 0;
+
+	// Obtener posicion del personaje
+	int	i;
+	int	j;
+	int	map_lines;
+
+	map_lines = count_lines_map(map) - 1;
+	i = 0;
+	while (i < map_lines)
+	{
+		j = 0;
+		while (map[i][j] != '\0')
+		{
+			if (map[i][j] == 'P')
+			{
+				pos->x = j;
+				pos->y = i;
+				break ;
+			}
+		}
+	}
+	ft_printf("Pos inic x: %d\n", pos->x);
+	ft_printf("Pos inic y: %d\n", pos->y);
 	return (1);
 }
