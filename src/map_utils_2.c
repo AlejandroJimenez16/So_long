@@ -1,55 +1,54 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long_utils.c                                    :+:      :+:    :+:   */
+/*   map_utils_2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alejandj <alejandj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/31 20:15:16 by alejandj          #+#    #+#             */
-/*   Updated: 2025/06/12 11:07:22 by alejandj         ###   ########.fr       */
+/*   Created: 2025/06/11 20:44:26 by alejandj          #+#    #+#             */
+/*   Updated: 2025/06/11 20:46:22 by alejandj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-void	free_arr(char **arr)
+void	get_pos_player(char **map, t_pos *pos)
 {
 	int	i;
+	int	j;
+	int	map_lines;
 
-	if (!arr)
-		return ;
+	map_lines = count_lines_map(map) - 1;
 	i = 0;
-	while (arr[i])
+	while (i < map_lines)
 	{
-		free(arr[i]);
+		j = 0;
+		while (map[i][j] != '\0')
+		{
+			if (map[i][j] == 'P')
+			{
+				pos->x = j;
+				pos->y = i;
+				break ;
+			}
+			j++;
+		}
 		i++;
 	}
-	free(arr);
 }
 
-void	free_queue(t_queue *queue)
+int	is_visited(int y, int x, t_queue *visited)
 {
 	t_list	*current;
-	t_list	*next;
+	t_pos	*pos;
 
-	if (!queue)
-		return ;
-	current = queue->head;
+	current = visited->head;
 	while (current != NULL)
 	{
-		next = current->next;
-		free(current->content);
-		free(current);
-		current = next;
+		pos = (t_pos *)current->content;
+		if (pos->x == x && pos->y == y)
+			return (1);
+		current = current->next;
 	}
-	free(queue);
-}
-
-void	print_errors(char **map, char *msg)
-{
-	write(2, "Error\n", 6);
-	write(2, msg, ft_strlen(msg));
-	write(2, "\n", 1);
-	free_arr(map);
-	exit(1);
+	return (0);
 }

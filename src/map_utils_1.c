@@ -6,7 +6,7 @@
 /*   By: alejandj <alejandj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 11:51:51 by alejandj          #+#    #+#             */
-/*   Updated: 2025/06/09 01:09:02 by alejandj         ###   ########.fr       */
+/*   Updated: 2025/06/11 19:16:37 by alejandj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,28 @@ int	count_lines_map(char **map)
 	while (map[j] != NULL)
 		j++;
 	return (j);
+}
+
+int	get_num_c(char **map)
+{
+	int	i;
+	int	j;
+	int	map_lines;
+	int	total_c;
+
+	map_lines = count_lines_map(map) - 1;
+	total_c = 0;
+	i = 0;
+	while (i < map_lines)
+	{
+		j = 0;
+		while (map[i][j] != '\0')
+		{
+			if (map[i][j] == 'C')
+				total_c++;
+			j++;
+		}
+		i++;
+	}
+	return (total_c);
 }

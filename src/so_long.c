@@ -6,7 +6,7 @@
 /*   By: alejandj <alejandj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 17:13:42 by alejandj          #+#    #+#             */
-/*   Updated: 2025/06/09 15:09:32 by alejandj         ###   ########.fr       */
+/*   Updated: 2025/06/12 14:12:22 by alejandj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,33 +38,27 @@ void	validate_map(char **map)
 		print_errors(map, "Map does not contain all required elements");
 	if (!check_valid_chars(map))
 		print_errors(map, "Map contains invalid characters");
+	if (!check_path(map))
+		print_errors(map, "Map has not valid path");
 }
 
 int	main(int argc, char *argv[])
 {
+	char	**map;
+
 	if (argc == 2)
 	{
-		char	**map;
-		
-		// Comprobacion extension correcta
 		if (!check_file_extension(argv[1]))
 		{
 			ft_putstr_fd("\033[1;31mINCORRECT FILE EXTENSION\n\033[0m", 2);
 			return (1);
 		}
-		
-		// Llenar el mapa
 		map = load_map(argv[1]);
-
-		// Validar mapa
 		validate_map(map);
-		
-		//mostrar lineas map
 		ft_printf("==========================\n");
 		ft_printf("            MAP           \n");
 		ft_printf("==========================\n");
 		print_map(map);
-		
 		free_arr(map);
 	}
 	else
