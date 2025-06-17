@@ -6,11 +6,19 @@
 /*   By: alejandj <alejandj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 17:13:42 by alejandj          #+#    #+#             */
-/*   Updated: 2025/06/12 14:12:22 by alejandj         ###   ########.fr       */
+/*   Updated: 2025/06/17 02:42:21 by alejandj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
+
+int	init_mlx(t_game *game)
+{
+	game->mlx = mlx_init();
+	if (!game->mlx)
+		return (0);
+	return (1);
+}
 
 int	check_file_extension(char *str)
 {
@@ -44,21 +52,25 @@ void	validate_map(char **map)
 
 int	main(int argc, char *argv[])
 {
+	t_game	game;
 	char	**map;
 
 	if (argc == 2)
 	{
 		if (!check_file_extension(argv[1]))
-		{
-			ft_putstr_fd("\033[1;31mINCORRECT FILE EXTENSION\n\033[0m", 2);
-			return (1);
-		}
+			print_errors(NULL, "INCORRECT FILE EXTENSION");
 		map = load_map(argv[1]);
+		game.map = map;
 		validate_map(map);
-		ft_printf("==========================\n");
-		ft_printf("            MAP           \n");
-		ft_printf("==========================\n");
-		print_map(map);
+		if (!init_mlx(&game))
+			print_errors(map, "Error: mlx_init failed");
+		if (!create_window(&game))
+			print_errors(map, "Error: Creating window");
+		load_sprites(&game);
+		render_map(&game);
+		mlx_key_hook(game.win.win, handle_key, &game);
+		mlx_hook(game.win.win, 17, 0, close_game, &game);
+		mlx_loop(game.mlx);
 		free_arr(map);
 	}
 	else

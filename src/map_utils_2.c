@@ -6,7 +6,7 @@
 /*   By: alejandj <alejandj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 20:44:26 by alejandj          #+#    #+#             */
-/*   Updated: 2025/06/11 20:46:22 by alejandj         ###   ########.fr       */
+/*   Updated: 2025/06/13 18:33:05 by alejandj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	get_pos_player(char **map, t_pos *pos)
 	}
 }
 
-int	is_visited(int y, int x, t_queue *visited)
+int	is_visited(int y, int x, t_queue *visited, int collected_c)
 {
 	t_list	*current;
 	t_pos	*pos;
@@ -46,7 +46,7 @@ int	is_visited(int y, int x, t_queue *visited)
 	while (current != NULL)
 	{
 		pos = (t_pos *)current->content;
-		if (pos->x == x && pos->y == y)
+		if (pos->x == x && pos->y == y && pos->collected_c == collected_c)
 			return (1);
 		current = current->next;
 	}

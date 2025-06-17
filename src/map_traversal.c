@@ -6,7 +6,7 @@
 /*   By: alejandj <alejandj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 12:08:40 by alejandj          #+#    #+#             */
-/*   Updated: 2025/06/12 14:10:47 by alejandj         ###   ########.fr       */
+/*   Updated: 2025/06/14 19:45:57 by alejandj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,22 +28,30 @@ int	try_move(char **map, t_path_state *state, t_path_ctx *ctx, int dir)
 {
 	int	x;
 	int	y;
+	int	collected;
 
 	x = state->current_pos->x;
 	y = state->current_pos->y;
+	collected = state->current_pos->collected_c;
 	manage_dir(&y, &x, dir);
-	if (map[y][x] == 'E' && state->count_c == state->total_c)
-		return (1);
+	if (map[y][x] == 'E')
+	{
+		if (collected == state->total_c)
+			return (1);
+		return (0);
+	}
 	if (map[y][x] == 'C')
-		state->count_c++;
+		collected++;
 	state->new_pos = malloc(sizeof(t_pos));
 	state->new_pos_cpy = malloc(sizeof(t_pos));
 	if (!state->new_pos || !state->new_pos_cpy)
 		return (0);
 	state->new_pos->y = y;
 	state->new_pos->x = x;
+	state->new_pos->collected_c = collected;
 	state->new_pos_cpy->y = state->new_pos->y;
 	state->new_pos_cpy->x = state->new_pos->x;
+	state->new_pos_cpy->collected_c = collected;
 	state->node_q = ft_lstnew(state->new_pos);
 	state->node_v = ft_lstnew(state->new_pos_cpy);
 	if (!state->node_q || !state->node_v)
@@ -57,19 +65,21 @@ int	check_neighbors(t_path_state *state, t_path_ctx *ctx, char **map)
 {
 	int	x;
 	int	y;
+	int	c;
 
 	x = state->current_pos->x;
 	y = state->current_pos->y;
-	if (map[y][x - 1] != '1' && !is_visited(y, x - 1, ctx->visited))
+	c = state->current_pos->collected_c;
+	if (map[y][x - 1] != '1' && !is_visited(y, x - 1, ctx->visited, c))
 		if (try_move(map, state, ctx, 0))
 			return (1);
-	if (map[y - 1][x] != '1' && !is_visited(y - 1, x, ctx->visited))
+	if (map[y - 1][x] != '1' && !is_visited(y - 1, x, ctx->visited, c))
 		if (try_move(map, state, ctx, 1))
 			return (1);
-	if (map[y][x + 1] != '1' && !is_visited(y, x + 1, ctx->visited))
+	if (map[y][x + 1] != '1' && !is_visited(y, x + 1, ctx->visited, c))
 		if (try_move(map, state, ctx, 2))
 			return (1);
-	if (map[y + 1][x] != '1' && !is_visited(y + 1, x, ctx->visited))
+	if (map[y + 1][x] != '1' && !is_visited(y + 1, x, ctx->visited, c))
 		if (try_move(map, state, ctx, 3))
 			return (1);
 	return (0);
@@ -79,7 +89,6 @@ int	travel_map(t_path_ctx *ctx, char **map)
 {
 	t_path_state	state;
 
-	state.count_c = 0;
 	state.total_c = get_num_c(map);
 	state.current_pos = malloc(sizeof(t_pos));
 	if (!state.current_pos)

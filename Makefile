@@ -6,17 +6,18 @@
 #    By: alejandj <alejandj@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/31 20:17:48 by alejandj          #+#    #+#              #
-#    Updated: 2025/06/12 12:17:52 by alejandj         ###   ########.fr        #
+#    Updated: 2025/06/16 14:51:27 by alejandj         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = so_long
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g -Iincludes -no-pie
+CFLAGS = -Wall -Wextra -Werror -g -Iincludes -I$(MINILIBXDIR) -no-pie
 
 # Directorios
 LIBDIR = libft/
+MINILIBXDIR = minilibx-linux
 OBJDIR = obj/
 
 SRC =	src/so_long.c			\
@@ -26,21 +27,29 @@ SRC =	src/so_long.c			\
 		src/map_check_1.c		\
 		src/map_check_2.c		\
 		src/map_traversal.c		\
+		src/window.c			\
+		src/events.c			\
+		src/render.c			\
 
 OBJECTS = $(SRC:src/%.c=$(OBJDIR)/%.o)
 
-# Libreria
+# Librerias
 LIBFT = $(LIBDIR)/libft.a
+MINILIBX = $(MINILIBXDIR)/libmlx.a
 
 all: $(NAME)
 
 # Compilar el ejecutable
-$(NAME) : $(OBJECTS) $(LIBFT)
-	$(CC) $(CFLAGS) $(OBJECTS) -L$(LIBDIR) -lft -o $(NAME)
+$(NAME): $(OBJECTS) $(LIBFT) $(MINILIBX)
+	$(CC) $(CFLAGS) $(OBJECTS) -o $(NAME) -L$(LIBDIR) -lft -L$(MINILIBXDIR) -lmlx -lXext -lX11 -lm
 
-# Compilar la biblioteca
+# Compilar libft
 $(LIBFT):
-	make -C $(LIBDIR)
+	make -C $(LIBDIR) all
+
+# Compilar minilibx
+$(MINILIBX):
+	make -C $(MINILIBXDIR) all
 
 # Regla para crear los .o en el directorio obj
 $(OBJDIR)/%.o: src/%.c
