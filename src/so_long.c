@@ -6,7 +6,7 @@
 /*   By: alejandj <alejandj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 17:13:42 by alejandj          #+#    #+#             */
-/*   Updated: 2025/06/17 02:42:21 by alejandj         ###   ########.fr       */
+/*   Updated: 2025/06/17 17:28:40 by alejandj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ int	main(int argc, char *argv[])
 		if (!check_file_extension(argv[1]))
 			print_errors(NULL, "INCORRECT FILE EXTENSION");
 		map = load_map(argv[1]);
+		game.count_moves = 1;
 		game.map = map;
 		validate_map(map);
 		if (!init_mlx(&game))

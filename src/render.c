@@ -6,13 +6,13 @@
 /*   By: alejandj <alejandj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 13:32:36 by alejandj          #+#    #+#             */
-/*   Updated: 2025/06/17 11:52:21 by alejandj         ###   ########.fr       */
+/*   Updated: 2025/06/17 18:06:51 by alejandj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-void	load_player_sprites(t_game *game, int w, int h)
+static void	load_player_sprites(t_game *game, int w, int h)
 {
 	game->sprites.player_up = mlx_xpm_file_to_image(game->mlx,
 			"textures/pikachu_up.xpm", &w, &h);
@@ -55,12 +55,16 @@ void	load_sprites(t_game *game)
 			"textures/exit.xpm", &w, &h);
 	if (!game->sprites.exit)
 		print_errors(game->map, "Error load exit.xpm");
+	game->sprites.exit_final = mlx_xpm_file_to_image(game->mlx,
+			"textures/exit_final.xpm", &w, &h);
+	if (!game->sprites.exit_final)
+		print_errors(game->map, "Error load exit_final.xpm");
 }
 
-void	draw_elements(char c, t_game *game, int i, int j)
+static void	draw_elements(char c, t_game *game, int i, int j)
 {
 	mlx_put_image_to_window(game->mlx, game->win.win, game->sprites.floor,
-				j * TILE_SIZE, i * TILE_SIZE);
+		j * TILE_SIZE, i * TILE_SIZE);
 	if (c == '1')
 		mlx_put_image_to_window(game->mlx, game->win.win, game->sprites.wall,
 			j * TILE_SIZE, i * TILE_SIZE);

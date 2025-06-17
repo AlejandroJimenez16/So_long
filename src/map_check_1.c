@@ -6,7 +6,7 @@
 /*   By: alejandj <alejandj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 13:31:35 by alejandj          #+#    #+#             */
-/*   Updated: 2025/06/10 12:45:56 by alejandj         ###   ########.fr       */
+/*   Updated: 2025/06/17 18:04:29 by alejandj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	check_walls_y(char **map)
 	return (1);
 }
 
-void	count_elements(char **map, int i, t_elements *elements)
+static void	count_elements(char **map, int i, t_elements *elements)
 {
 	int	j;
 

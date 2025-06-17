@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_utils.c                                        :+:      :+:    :+:   */
+/*   map_utils_1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alejandj <alejandj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 11:51:51 by alejandj          #+#    #+#             */
-/*   Updated: 2025/06/11 19:16:37 by alejandj         ###   ########.fr       */
+/*   Updated: 2025/06/17 18:05:42 by alejandj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-char	**fill_map(char *file, int count)
+static char	**fill_map(char *file, int count)
 {
 	int		i;
 	char	*line;

@@ -6,7 +6,7 @@
 /*   By: alejandj <alejandj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 20:15:16 by alejandj          #+#    #+#             */
-/*   Updated: 2025/06/12 11:07:22 by alejandj         ###   ########.fr       */
+/*   Updated: 2025/06/17 16:13:11 by alejandj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,11 @@ void	print_errors(char **map, char *msg)
 	write(2, "\n", 1);
 	free_arr(map);
 	exit(1);
+}
+
+int	close_game(t_game *game)
+{
+	free_arr(game->map);
+	mlx_destroy_window(game->mlx, game->win.win);
+	exit(0);
 }

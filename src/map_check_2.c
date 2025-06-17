@@ -6,7 +6,7 @@
 /*   By: alejandj <alejandj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 20:45:26 by alejandj          #+#    #+#             */
-/*   Updated: 2025/06/12 14:01:04 by alejandj         ###   ########.fr       */
+/*   Updated: 2025/06/17 18:05:21 by alejandj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	check_valid_chars(char **map)
 	return (1);
 }
 
-int	init_elements(t_path_ctx *ctx)
+static int	init_elements(t_path_ctx *ctx)
 {
 	ctx->queue = malloc(sizeof(t_queue));
 	if (!ctx->queue)
@@ -68,7 +68,7 @@ int	init_elements(t_path_ctx *ctx)
 	return (1);
 }
 
-int	save_initial_pos(char **map, t_path_ctx *ctx)
+static int	save_initial_pos(char **map, t_path_ctx *ctx)
 {
 	t_list	*initial_node;
 	t_list	*initial_visited;
