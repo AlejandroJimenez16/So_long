@@ -6,7 +6,7 @@
 #    By: alejandj <alejandj@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/31 20:17:48 by alejandj          #+#    #+#              #
-#    Updated: 2025/06/16 14:51:27 by alejandj         ###   ########.fr        #
+#    Updated: 2025/06/18 13:29:34 by alejandj         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,6 @@ SRC =	src/so_long.c			\
 		src/map_utils_2.c		\
 		src/map_check_1.c		\
 		src/map_check_2.c		\
-		src/map_traversal.c		\
 		src/window.c			\
 		src/events.c			\
 		src/render.c			\
