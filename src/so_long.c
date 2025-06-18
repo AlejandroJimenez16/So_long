@@ -6,7 +6,7 @@
 /*   By: alejandj <alejandj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 17:13:42 by alejandj          #+#    #+#             */
-/*   Updated: 2025/06/17 17:28:40 by alejandj         ###   ########.fr       */
+/*   Updated: 2025/06/18 20:32:47 by alejandj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,34 @@ int	init_mlx(t_game *game)
 	return (1);
 }
 
-int	check_file_extension(char *str)
+static int	file_exist(char *path)
+{
+	int	fd;
+
+	if (!path)
+		return (0);
+	fd = open(path, O_RDONLY);
+	if (fd == -1)
+		return (0);
+	close(fd);
+	return (1);
+}
+
+static int	check_file_extension(char *str)
 {
 	char	**file_name;
-	int		len;
+	int		i;
 
+	if (!str)
+		return (0);
 	file_name = ft_split(str, '.');
-	len = ft_strlen(file_name[1]);
-	if (len != 3 || (ft_strncmp("ber", file_name[1], 3) != 0))
+	if (!file_name)
+		return (0);
+	i = 0;
+	while (file_name[i])
+		i++;
+	i--;
+	if (ft_strncmp(file_name[i], "ber", 3) != 0)
 	{
 		free_arr(file_name);
 		return (0);
@@ -36,16 +56,17 @@ int	check_file_extension(char *str)
 	return (1);
 }
 
-void	validate_map(char **map)
+static void	validate_map(char **map)
 {
 	if (!is_rectangular(map))
 		print_errors(map, "Map is not rectangular");
 	if (!check_walls_x(map) || !check_walls_y(map))
 		print_errors(map, "Map is not closed");
-	if (!check_min_elements(map))
-		print_errors(map, "Map does not contain all required elements");
 	if (!check_valid_chars(map))
 		print_errors(map, "Map contains invalid characters");
+	if (!check_min_elements(map))
+		print_errors(map, "Map must contain exactly one P (player), "
+			"one E (exit), and at least one C (collectible)");
 	if (!check_path(map))
 		print_errors(map, "Map has not valid path");
 }
@@ -53,26 +74,28 @@ void	validate_map(char **map)
 int	main(int argc, char *argv[])
 {
 	t_game	game;
-	char	**map;
 
 	if (argc == 2)
 	{
 		if (!check_file_extension(argv[1]))
-			print_errors(NULL, "INCORRECT FILE EXTENSION");
-		map = load_map(argv[1]);
+			print_errors(NULL, "Incorrect file extension");
+		if (!file_exist(argv[1]))
+			print_errors(NULL, "File does not exist");
+		game.map = load_map(argv[1]);
+		if (!game.map)
+			print_errors(NULL, "File is empty or error loading map");
 		game.count_moves = 1;
-		game.map = map;
-		validate_map(map);
+		validate_map(game.map);
 		if (!init_mlx(&game))
-			print_errors(map, "Error: mlx_init failed");
+			print_errors(game.map, "mlx_init failed");
 		if (!create_window(&game))
-			print_errors(map, "Error: Creating window");
+			print_errors(game.map, "Creating window");
 		load_sprites(&game);
 		render_map(&game);
 		mlx_key_hook(game.win.win, handle_key, &game);
 		mlx_hook(game.win.win, 17, 0, close_game, &game);
 		mlx_loop(game.mlx);
-		free_arr(map);
+		free_arr(game.map);
 	}
 	else
 		ft_putstr_fd("\033[1;31mINCORRECT ARGS\n\033[0m", 2);

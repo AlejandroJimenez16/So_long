@@ -6,7 +6,7 @@
 /*   By: alejandj <alejandj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 11:51:51 by alejandj          #+#    #+#             */
-/*   Updated: 2025/06/17 18:05:42 by alejandj         ###   ########.fr       */
+/*   Updated: 2025/06/18 20:22:47 by alejandj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ static char	**fill_map(char *file, int count)
 		return (NULL);
 	map = malloc((count + 1) * sizeof(char *));
 	if (!map)
+	{
+		close (fd);
 		return (NULL);
+	}
 	i = 0;
 	line = get_next_line(fd);
 	while (line != NULL)
@@ -57,6 +60,8 @@ char	**load_map(char *file)
 		line = get_next_line(fd);
 	}
 	close(fd);
+	if (count == 0)
+		return (NULL);
 	map = fill_map(file, count);
 	return (map);
 }

@@ -6,7 +6,7 @@
 /*   By: alejandj <alejandj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 20:45:26 by alejandj          #+#    #+#             */
-/*   Updated: 2025/06/18 14:41:14 by alejandj         ###   ########.fr       */
+/*   Updated: 2025/06/18 19:52:56 by alejandj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,12 @@ static void	flood_fill(char **copy, int x, int y)
 {
 	if (copy[y][x] == '1' || copy[y][x] == 'v')
 		return ;
-	if (copy[y][x] == '0' || copy[y][x] == 'C' ||
-			copy[y][x] == 'E' || copy[y][x] == 'P')
+	if (copy[y][x] == 'E')
+	{
+		copy[y][x] = 'v';
+		return ;
+	}
+	if (copy[y][x] == '0' || copy[y][x] == 'C' || copy[y][x] == 'P')
 		copy[y][x] = 'v';
 	flood_fill(copy, x - 1, y);
 	flood_fill(copy, x, y - 1);
@@ -85,5 +89,11 @@ int	check_path(char **map)
 	get_pos_player(map, &pos_player);
 	copy = duplicate_map(map);
 	flood_fill(copy, pos_player.x, pos_player.y);
-	return (compare_maps(map, copy));
+	if (!compare_maps(map, copy))
+	{
+		free_arr(copy);
+		return (0);
+	}
+	free_arr(copy);
+	return (1);
 }

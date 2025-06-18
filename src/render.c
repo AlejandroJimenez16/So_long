@@ -6,7 +6,7 @@
 /*   By: alejandj <alejandj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 13:32:36 by alejandj          #+#    #+#             */
-/*   Updated: 2025/06/17 18:06:51 by alejandj         ###   ########.fr       */
+/*   Updated: 2025/06/18 21:50:08 by alejandj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,9 @@ void	load_sprites(t_game *game)
 
 static void	draw_elements(char c, t_game *game, int i, int j)
 {
-	mlx_put_image_to_window(game->mlx, game->win.win, game->sprites.floor,
-		j * TILE_SIZE, i * TILE_SIZE);
+	if (c == '0')
+		mlx_put_image_to_window(game->mlx, game->win.win, game->sprites.floor,
+			j * TILE_SIZE, i * TILE_SIZE);
 	if (c == '1')
 		mlx_put_image_to_window(game->mlx, game->win.win, game->sprites.wall,
 			j * TILE_SIZE, i * TILE_SIZE);
