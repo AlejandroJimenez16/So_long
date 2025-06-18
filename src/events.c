@@ -6,7 +6,7 @@
 /*   By: alejandj <alejandj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 00:39:00 by alejandj          #+#    #+#             */
-/*   Updated: 2025/06/17 18:03:55 by alejandj         ###   ########.fr       */
+/*   Updated: 2025/06/19 00:25:16 by alejandj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	apply_move(t_game *game, int new_y, int new_x)
 		{
 			game->count_c++;
 			if (game->count_c == total_c)
-				game->sprites.exit = game->sprites.exit_final;
+				game->sprites.exit_current = game->sprites.exit_final;
 		}
 		update_player_position(game, new_y, new_x);
 	}

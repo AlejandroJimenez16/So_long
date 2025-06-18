@@ -6,7 +6,7 @@
 /*   By: alejandj <alejandj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 17:13:42 by alejandj          #+#    #+#             */
-/*   Updated: 2025/06/18 20:32:47 by alejandj         ###   ########.fr       */
+/*   Updated: 2025/06/19 00:56:26 by alejandj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ static int	check_file_extension(char *str)
 {
 	char	**file_name;
 	int		i;
+	int		len;
 
 	if (!str)
 		return (0);
@@ -44,10 +45,11 @@ static int	check_file_extension(char *str)
 	if (!file_name)
 		return (0);
 	i = 0;
+	len = ft_strlen(file_name[1]);
 	while (file_name[i])
 		i++;
 	i--;
-	if (ft_strncmp(file_name[i], "ber", 3) != 0)
+	if (len != 3 || ft_strncmp(file_name[i], "ber", 3) != 0)
 	{
 		free_arr(file_name);
 		return (0);
@@ -95,7 +97,6 @@ int	main(int argc, char *argv[])
 		mlx_key_hook(game.win.win, handle_key, &game);
 		mlx_hook(game.win.win, 17, 0, close_game, &game);
 		mlx_loop(game.mlx);
-		free_arr(game.map);
 	}
 	else
 		ft_putstr_fd("\033[1;31mINCORRECT ARGS\n\033[0m", 2);

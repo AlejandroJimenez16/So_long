@@ -6,7 +6,7 @@
 /*   By: alejandj <alejandj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 13:54:13 by alejandj          #+#    #+#             */
-/*   Updated: 2025/06/18 14:37:56 by alejandj         ###   ########.fr       */
+/*   Updated: 2025/06/19 00:23:35 by alejandj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct s_sprites
 	void		*collectionable;
 	void		*exit;
 	void		*exit_final;
+	void		*exit_current;
 }				t_sprites;
 
 typedef struct s_game

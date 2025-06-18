@@ -6,14 +6,19 @@
 /*   By: alejandj <alejandj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 13:32:36 by alejandj          #+#    #+#             */
-/*   Updated: 2025/06/18 21:50:08 by alejandj         ###   ########.fr       */
+/*   Updated: 2025/06/19 00:55:54 by alejandj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-static void	load_player_sprites(t_game *game, int w, int h)
+static void	load_player_sprites(t_game *game)
 {
+	int	h;
+	int	w;
+
+	h = 0;
+	w = 0;
 	game->sprites.player_up = mlx_xpm_file_to_image(game->mlx,
 			"textures/pikachu_up.xpm", &w, &h);
 	if (!game->sprites.player_up)
@@ -46,7 +51,7 @@ void	load_sprites(t_game *game)
 			"textures/floor.xpm", &w, &h);
 	if (!game->sprites.floor)
 		print_errors(game->map, "Error load floor.xpm");
-	load_player_sprites(game, w, h);
+	load_player_sprites(game);
 	game->sprites.collectionable = mlx_xpm_file_to_image(game->mlx,
 			"textures/pokeball.xpm", &w, &h);
 	if (!game->sprites.collectionable)
@@ -59,6 +64,7 @@ void	load_sprites(t_game *game)
 			"textures/exit_final.xpm", &w, &h);
 	if (!game->sprites.exit_final)
 		print_errors(game->map, "Error load exit_final.xpm");
+	game->sprites.exit_current = game->sprites.exit;
 }
 
 static void	draw_elements(char c, t_game *game, int i, int j)
@@ -78,7 +84,7 @@ static void	draw_elements(char c, t_game *game, int i, int j)
 			i * TILE_SIZE);
 	if (c == 'E')
 		mlx_put_image_to_window(game->mlx, game->win.win,
-			game->sprites.exit, j * TILE_SIZE, i * TILE_SIZE);
+			game->sprites.exit_current, j * TILE_SIZE, i * TILE_SIZE);
 }
 
 void	render_map(t_game *game)
