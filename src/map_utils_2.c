@@ -6,7 +6,7 @@
 /*   By: alejandj <alejandj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 20:44:26 by alejandj          #+#    #+#             */
-/*   Updated: 2025/06/13 18:33:05 by alejandj         ###   ########.fr       */
+/*   Updated: 2025/06/18 14:38:22 by alejandj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,18 +37,29 @@ void	get_pos_player(char **map, t_pos *pos)
 	}
 }
 
-int	is_visited(int y, int x, t_queue *visited, int collected_c)
+char	**duplicate_map(char **map)
 {
-	t_list	*current;
-	t_pos	*pos;
+	int		i;
+	int		j;
+	int		map_lines;
+	char	**copy;
 
-	current = visited->head;
-	while (current != NULL)
+	i = 0;
+	map_lines = count_lines_map(map);
+	copy = malloc((map_lines + 1) * sizeof(char *));
+	if (!copy)
+		return (NULL);
+	while (i < map_lines)
 	{
-		pos = (t_pos *)current->content;
-		if (pos->x == x && pos->y == y && pos->collected_c == collected_c)
-			return (1);
-		current = current->next;
+		copy[i] = malloc((ft_strlen(map[i]) + 1) * sizeof(char));
+		if (!copy[i])
+			return (NULL);
+		j = -1;
+		while (map[i][++j] != '\0')
+			copy[i][j] = map[i][j];
+		copy[i][j] = '\0';
+		i++;
 	}
-	return (0);
+	copy[i] = NULL;
+	return (copy);
 }
