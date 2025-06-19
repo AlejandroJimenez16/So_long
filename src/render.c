@@ -6,7 +6,7 @@
 /*   By: alejandj <alejandj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 13:32:36 by alejandj          #+#    #+#             */
-/*   Updated: 2025/06/19 00:55:54 by alejandj         ###   ########.fr       */
+/*   Updated: 2025/06/19 03:37:55 by alejandj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,24 +87,53 @@ static void	draw_elements(char c, t_game *game, int i, int j)
 			game->sprites.exit_current, j * TILE_SIZE, i * TILE_SIZE);
 }
 
+static void	update_camera(t_game *game)
+{
+	int	visible_cols;
+	int	visible_rows;
+
+	visible_cols = game->win.win_width / TILE_SIZE;
+	visible_rows = game->win.win_height / TILE_SIZE;
+	game->camera_x = game->pos_player.x - visible_cols / 2;
+	game->camera_y = game->pos_player.y - visible_rows / 2;
+	if (game->camera_x < 0)
+		game->camera_x = 0;
+	if (game->camera_y < 0)
+		game->camera_y = 0;
+	if (game->camera_x > game->win.cols - visible_cols)
+		game->camera_x = game->win.cols - visible_cols;
+	if (game->camera_y > game->win.rows - visible_rows)
+		game->camera_y = game->win.rows - visible_rows;
+	if (game->camera_x < 0)
+		game->camera_x = 0;
+	if (game->camera_y < 0)
+		game->camera_y = 0;
+}
+
 void	render_map(t_game *game)
 {
-	int		i;
-	int		j;
-	int		map_lines;
-	char	c;
+	int			i;
+	int			j;
+	t_camera	cam;
+	int			map_cols;
 
-	i = 0;
-	map_lines = count_lines_map(game->map);
-	while (i < map_lines)
+	update_camera(game);
+	map_cols = ft_strlen(game->map[0]) - 1;
+	cam.visible_rows = game->win.win_height / TILE_SIZE;
+	cam.visible_cols = game->win.win_width / TILE_SIZE;
+	i = -1;
+	while (++i < cam.visible_rows)
 	{
-		j = 0;
-		while (game->map[i][j] != '\0')
+		cam.map_i = game->camera_y + i;
+		if (cam.map_i >= count_lines_map(game->map))
+			break ;
+		j = -1;
+		while (++j < cam.visible_cols)
 		{
-			c = game->map[i][j];
-			draw_elements(c, game, i, j);
-			j++;
+			cam.map_j = game->camera_x + j;
+			if (cam.map_j >= map_cols)
+				break ;
+			draw_elements(game->map[cam.map_i][cam.map_j], game, i, j);
 		}
-		i++;
 	}
 }

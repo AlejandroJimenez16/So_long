@@ -6,7 +6,7 @@
 /*   By: alejandj <alejandj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 13:54:13 by alejandj          #+#    #+#             */
-/*   Updated: 2025/06/19 00:23:35 by alejandj         ###   ########.fr       */
+/*   Updated: 2025/06/19 03:35:09 by alejandj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,14 @@ typedef struct s_sprites
 	void		*exit_current;
 }				t_sprites;
 
+typedef struct s_camera
+{
+	int		visible_rows;
+	int		visible_cols;
+	int		map_i;
+	int		map_j;
+}			t_camera;
+
 typedef struct s_game
 {
 	void		*mlx;
@@ -66,6 +74,8 @@ typedef struct s_game
 	t_pos		pos_player;
 	int			count_c;
 	int			count_moves;
+	int			camera_x;
+	int			camera_y;
 }				t_game;
 
 // Utils
