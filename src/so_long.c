@@ -6,7 +6,7 @@
 /*   By: alejandj <alejandj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 17:13:42 by alejandj          #+#    #+#             */
-/*   Updated: 2025/06/19 00:56:26 by alejandj         ###   ########.fr       */
+/*   Updated: 2025/06/19 02:41:56 by alejandj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,19 +37,22 @@ static int	check_file_extension(char *str)
 {
 	char	**file_name;
 	int		i;
-	int		len;
 
 	if (!str)
 		return (0);
 	file_name = ft_split(str, '.');
-	if (!file_name)
+	if (!file_name || !file_name[0])
 		return (0);
+	if (!file_name[1])
+	{
+		free_arr(file_name);
+		return (0);
+	}
 	i = 0;
-	len = ft_strlen(file_name[1]);
 	while (file_name[i])
 		i++;
 	i--;
-	if (len != 3 || ft_strncmp(file_name[i], "ber", 3) != 0)
+	if (ft_strlen(file_name[1]) != 3 || ft_strncmp(file_name[i], "ber", 3) != 0)
 	{
 		free_arr(file_name);
 		return (0);
@@ -79,10 +82,10 @@ int	main(int argc, char *argv[])
 
 	if (argc == 2)
 	{
-		if (!check_file_extension(argv[1]))
-			print_errors(NULL, "Incorrect file extension");
 		if (!file_exist(argv[1]))
 			print_errors(NULL, "File does not exist");
+		if (!check_file_extension(argv[1]))
+			print_errors(NULL, "Incorrect file extension");
 		game.map = load_map(argv[1]);
 		if (!game.map)
 			print_errors(NULL, "File is empty or error loading map");
