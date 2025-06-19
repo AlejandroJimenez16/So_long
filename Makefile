@@ -6,14 +6,14 @@
 #    By: alejandj <alejandj@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/31 20:17:48 by alejandj          #+#    #+#              #
-#    Updated: 2025/06/18 13:29:34 by alejandj         ###   ########.fr        #
+#    Updated: 2025/06/19 11:02:29 by alejandj         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = so_long
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g -Iincludes -I$(MINILIBXDIR) -no-pie
+CFLAGS = -Wall -Wextra -Werror -g -Iincludes -I$(MINILIBXDIR)
 
 # Directorios
 LIBDIR = libft/

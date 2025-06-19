@@ -6,7 +6,7 @@
 /*   By: alejandj <alejandj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 17:13:42 by alejandj          #+#    #+#             */
-/*   Updated: 2025/06/19 02:44:20 by alejandj         ###   ########.fr       */
+/*   Updated: 2025/06/19 12:31:48 by alejandj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,29 +36,29 @@ static int	file_exist(char *path)
 static int	check_file_extension(char *str)
 {
 	char	**file_name;
+	char	**extension_part;
 	int		i;
+	int		j;
 
-	if (!str)
-		return (0);
 	file_name = ft_split(str, '.');
 	if (!file_name || !file_name[0])
 		return (0);
-	if (!file_name[1])
-	{
-		free_arr(file_name);
-		return (0);
-	}
 	i = 0;
 	while (file_name[i])
 		i++;
 	i--;
-	if (ft_strlen(file_name[1]) != 3 || ft_strncmp(file_name[i], "ber", 3) != 0)
-	{
-		free_arr(file_name);
+	extension_part = ft_split(str, '/');
+	if (!extension_part || !extension_part[0])
 		return (0);
-	}
-	free_arr(file_name);
-	return (1);
+	j = 0;
+	while (extension_part[j])
+		j++;
+	j--;
+	if (ft_strlen(extension_part[j]) < 5)
+		return (free_arr(file_name), free_arr(extension_part), 0);
+	if (ft_strlen(file_name[i]) != 3 || ft_strncmp(file_name[i], "ber", 3) != 0)
+		return (free_arr(file_name), free_arr(extension_part), 0);
+	return (free_arr(file_name), free_arr(extension_part), 1);
 }
 
 static void	validate_map(char **map)

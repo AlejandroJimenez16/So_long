@@ -6,7 +6,7 @@
 /*   By: alejandj <alejandj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 13:32:36 by alejandj          #+#    #+#             */
-/*   Updated: 2025/06/19 03:37:55 by alejandj         ###   ########.fr       */
+/*   Updated: 2025/06/19 11:11:56 by alejandj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ static void	update_camera(t_game *game)
 	int	visible_cols;
 	int	visible_rows;
 
+	get_pos_player(game->map, &game->pos_player);
 	visible_cols = game->win.win_width / TILE_SIZE;
 	visible_rows = game->win.win_height / TILE_SIZE;
 	game->camera_x = game->pos_player.x - visible_cols / 2;

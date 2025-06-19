@@ -6,7 +6,7 @@
 /*   By: alejandj <alejandj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 13:31:35 by alejandj          #+#    #+#             */
-/*   Updated: 2025/06/18 19:26:54 by alejandj         ###   ########.fr       */
+/*   Updated: 2025/06/19 11:55:05 by alejandj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int	is_rectangular(char **map)
 	i = 1;
 	num_lines = count_lines_map(map) - 1;
 	len = ft_strlen(map[0]) - 1;
+	if ((int)len == num_lines + 1)
+		return (0);
 	while (map[i])
 	{
 		if (i == num_lines)
